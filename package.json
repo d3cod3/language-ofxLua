@@ -3,7 +3,7 @@
   "license": "MIT",
   "name": "language-ofxLua",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Atom package for ofxLua OF/lua code syntax highlighting",
   "engines": {
     "atom": ">=0.50.0"
@@ -15,6 +15,5 @@
   },
   "bugs": {
     "url": "https://github.com/d3cod3/language-ofxLua/issues"
-  },
-  "license": "MIT"
+  }
 }
