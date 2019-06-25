@@ -1,0 +1,20 @@
+{
+  "homepage": "https://github.com/d3cod3/language-ofxLua#readme",
+  "license": "MIT",
+  "name": "language-ofxLua",
+  "private": false,
+  "version": "0.0.1",
+  "description": "Atom package for ofxLua OF/lua code syntax highlighting",
+  "engines": {
+    "atom": ">=0.50.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d3cod3/language-ofxLua.git"
+  },
+  "bugs": {
+    "url": "https://github.com/d3cod3/language-ofxLua/issues"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,166 @@
+'comment': 'ofxLua Syntax: lua bindings for OF 0.10.1'
+'fileTypes': ['lua']
+'firstLineMatch': '\\A#!.*?\\blua\\b'
+'name': 'ofxLua'
+'patterns': [
+  {
+    'captures':
+      '1':
+        'name': 'keyword.control.lua'
+      '2':
+        'name': 'entity.name.function.scope.lua'
+      '3':
+        'name': 'entity.name.function.lua'
+      '4':
+        'name': 'punctuation.definition.parameters.begin.lua'
+      '5':
+        'name': 'variable.parameter.function.lua'
+      '6':
+        'name': 'punctuation.definition.parameters.end.lua'
+    'match': '\\b(function)(?:\\s+([a-zA-Z_.:]+[.:])?([a-zA-Z_]\\w*)\\s*)?(\\()([^)]*)(\\))'
+    'name': 'meta.function.lua'
+  }
+  {
+    'match': '(?<![\\d.])\\s0x[a-fA-F\\d]+|\\b\\d+(\\.\\d+)?([eE]-?\\d+)?|\\.\\d+([eE]-?\\d+)?'
+    'name': 'constant.numeric.lua'
+  }
+  {
+    'begin': '\''
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.lua'
+    'end': '\''
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.lua'
+    'name': 'string.quoted.single.lua'
+    'patterns': [
+      {
+        'include': 'punctuation.definition.string.begin.lua'
+      }
+      {
+        'include': 'punctuation.definition.string.end.lua'
+      }
+      {
+        'match': '\\\\.'
+        'name': 'constant.character.escape.lua'
+      }
+    ]
+  }
+  {
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.lua'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.lua'
+    'name': 'string.quoted.double.lua'
+    'patterns': [
+      {
+        'include': 'punctuation.definition.string.begin.lua'
+      }
+      {
+        'include': 'punctuation.definition.string.end.lua'
+      }
+      {
+        'match': '\\\\.'
+        'name': 'constant.character.escape.lua'
+      }
+    ]
+  }
+  {
+    'begin': '(?<=\\.cdef)\\s*(\\[(=*)\\[)'
+    'beginCaptures':
+      '0':
+        'name': 'string.quoted.other.multiline.lua'
+      '1':
+        'name': 'punctuation.definition.string.begin.lua'
+    'contentName': 'meta.embedded.lua'
+    'end': '(\\]\\2\\])'
+    'endCaptures':
+      '0':
+        'name': 'string.quoted.other.multiline.lua'
+      '1':
+        'name': 'punctuation.definition.string.end.lua'
+    'patterns': [
+      {
+        'include': 'source.c'
+      }
+    ]
+  }
+  {
+    'begin': '(?<!--)\\[(=*)\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.lua'
+    'end': '\\]\\1\\]'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.lua'
+    'name': 'string.quoted.other.multiline.lua'
+  }
+  {
+    'begin': '--\\[(=*)\\['
+    'captures':
+      '0':
+        'name': 'punctuation.definition.comment.lua'
+    'end': '\\]\\1\\]'
+    'name': 'comment.block.lua'
+  }
+  {
+    'begin': '(^[ \\t]+)?(?=--(?!\\[(=*)\\[))'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.whitespace.comment.leading.lua'
+    'end': '(?!\\G)'
+    'patterns': [
+      {
+        'begin': '--'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.comment.lua'
+        'end': '\\n'
+        'name': 'comment.line.double-dash.lua'
+      }
+    ]
+  }
+  {
+    'match': '\\b(and|or|not|break|do|else|for|if|elseif|return|then|repeat|while|until|end|function|local|in|goto)\\b'
+    'name': 'keyword.control.lua'
+  }
+  {
+    'match': '(?<![^.]\\.|:)\\b(false|nil|true|_G|_VERSION|math\\.(pi|huge))\\b|(?<![.])\\.{3}(?!\\.)'
+    'name': 'constant.language.lua'
+  }
+  {
+    'match': '(?<![^.]\\.|:)\\b(self)\\b'
+    'name': 'variable.language.self.lua'
+  }
+  {
+    'match': '(?<![^.]\\.|:)\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\b(?=\\s*(?:[({"\']|\\[\\[))'
+    'name': 'support.function.lua'
+  }
+  {
+    'match': '(?<![^.]\\.|:)\\b(coroutine\\.(create|resume|running|status|wrap|yield)|string\\.(byte|char|dump|find|format|gmatch|gsub|len|lower|match|rep|reverse|sub|upper)|table\\.(concat|insert|maxn|remove|sort)|math\\.(abs|acos|asin|atan2?|ceil|cosh?|deg|exp|floor|fmod|frexp|ldexp|log|log10|max|min|modf|pow|rad|random|randomseed|sinh?|sqrt|tanh?)|io\\.(close|flush|input|lines|open|output|popen|read|tmpfile|type|write)|os\\.(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname)|package\\.(cpath|loaded|loadlib|path|preload|seeall)|debug\\.(debug|[gs]etfenv|[gs]ethook|getinfo|[gs]etlocal|[gs]etmetatable|getregistry|[gs]etupvalue|traceback))\\b(?=\\s*(?:[({"\']|\\[\\[))'
+    'name': 'support.function.library.lua'
+  }
+  {
+    'match': '(?<![^.]\\.|:)\\b(of\\.(TTF_SERIF|isVFlipped|getWeekday|SerialDeviceInfo|supportedPinTypes|ImageLoadSettings|Arduino|3dPrimitive|PlanePrimitive|SpherePrimitive|IcoSpherePrimitive|CylinderPrimitive|ConePrimitive|BoxPrimitive|IMAGE_FORMAT_ICO|setBackgroundColorHex|background|VERTEX_SHADER|FRAGMENT_SHADER|MATRIX_PROJECTION|Firmata_Serial_Data|rotateYDeg|TTF_MONO|KEY_RIGHT|BoxPrimitive_SIDE_RIGHT|TTF_LEFT_TO_RIGHT|CIRC_RESOLUTION|ANALOG_MAPPING_RESPONSE|CAPABILITY_RESPONSE|PIN_STATE_RESPONSE|SERIAL_WRITE|Matrix4x4|getYear|enableSmoothing|disableSmoothing|VideoFormat|DragInfo|Quaternion|TOTAL_PIN_MODES|drawBezier|IMAGE_FORMAT_JNG|IMAGE_QUALITY_HIGH|IMAGE_FORMAT_PBMRAW|Firmata_I2C_Data|getFrameRate|getTargetFrameRate|setFrameRate|CONSOLE_COLOR_YELLOW|SERIAL_FLUSH|SoundDevice_OSS|CONSOLE_COLOR_BLUE|SERIAL_REPLY|ONEWIRE_READ_REPLY|ONEWIRE_SEARCH_REPLY|LOG_NOTICE|setPixelStoreiAlignment|PIXELS_RGB565|binaryToInt|doesHWOrientation|setOrientation|getOrientation|systemSaveDialog|logToFile|ARDUINO_DELAY_LENGTH|hexToChar|MODE_ANALOG|ARD_ANALOG|EXTENDED_ANALOG|REPORT_ANALOG|Path_POLYLINES|enableBlendMode|disableBlendMode|sendMessage|normalize|setupScreenOrtho|KEY_DOWN|clear|PIXELS_NATIVE|drawRectRounded|sign|FboModeAnd|noFill|ARD_HIGH|soundStreamClose|saveViewport|IMAGE_FORMAT_JP2|PIXELS_UYVY|getRectMode|setRectMode|viewport|getCurrentViewport|getNativeViewport|ARD_LOW|HttpRequest_GET|POLY_WINDING_NEGATIVE|Polyline|getOFPrimitiveMode|getGLPrimitiveMode|getBytesPerChannelFromGLType|getImageTypeFromGLType|RAD_TO_DEG|ENCODER_REPORT_AUTO|drawEllipse|SoundDevice_JACK|ARD_INPUT|rotateYRad|BITMAPMODE_MODEL|FIRMATA_I2C_WRITE|CONSOLE_COLOR_PURPLE|getNumChannelsFromGLFormat|getGLFormatFromPixelFormat|getGLInternalFormatFromPixelFormat|getGLInternalFormat|ARD_I2C|MAX_STEPPERS|IMAGE_FORMAT_IFF|CONSOLE_COLOR_WHITE|END_SYSEX|START_SYSEX|system|setTimeModeSystem|KEY_PAGE_DOWN|SoundDevice_OSX_CORE|I2C_MAX_QUERIES|PRIMITIVE_LINES|MOUSE_BUTTON_LAST|ONEWIRE_SEARCH_ALARMS_REPLY|I2C_REPLY|Vec2f|File_Append|IMAGE_COLOR|toLower|I2C_REGISTER_NOT_SPECIFIED|SoundDevice_UNSPECIFIED|getWindowMode|VideoDevice|hexToInt|systemAlertDialog|systemLoadDialog|systemTextBoxDialog|bufferToFile|PIXELS_NUM_FORMATS|IMAGE_FORMAT_PNG|radToDeg|vertices|curveVertices|getVersionPatch|ShortImage|RECTMODE_CENTER|ALIGN_VERT_CENTER|ALIGN_HORZ_CENTER|SCALEMODE_CENTER|IMAGE_FORMAT_TIFF|drawRotationAxes|rotateDeg|M_TWO_PI|getLoggerChannel|loadURL|IMAGE_FORMAT_TARGA|getCurrentTime|Vec3f|VboMesh|STEPPER_STEP|getGLType|hideCursor|showCursor|vertex|curveVertex|HAS_TLS|trimFront|Pixels|FloatPixels|ShortPixels|getWindowSize|MODE_INPUT|MODE_ONEWIRE|ARD_ONEWIRE|ARD_OFF|TARGET_MINGW|BaseSoundStream|SoundStream|DEG_TO_RAD|CLAMP_TO_BORDER|GRADIENT_BAR|SoundDevice_DEFAULT|ONEWIRE_POWER|COMPRESS_SRGB|toInt|GLCheckExtension|imageFormatExtension|setTimeModeFiltered|MODE_I2C|IMAGE_FORMAT_GIF|VERSION_PRE_RELEASE|INTERPOLATE_NEAREST_NEIGHBOR|ENCODER_ATTACH|ARD_TOTAL_PORTS|setMatrixMode|soundStreamListDevices|FOUR_PI|KEY_RIGHT_SHIFT|KEY_LEFT_SHIFT|ARD_SHIFT|CONSOLE_COLOR_GREEN|Vec4f|KEY_RIGHT_ALT|UTF8Append|isGLProgrammableRenderer|GLSupportsNPOTTextures|ENCODER_RESET_POSITION|ENCODER_REPORT_POSITION|toggleFullscreen|setFullscreen|saveScreen|KEY_LEFT_ALT|SoundDevice|REPORT_VERSION|FIRMATA_BUGFIX_VERSION|FIRMATA_MINOR_VERSION|FIRMATA_MAJOR_VERSION|LIGHT_POINT|getLastFrameTime|ALIGN_VERT_TOP|KEY_RIGHT_CONTROL|KEY_LEFT_CONTROL|KEY_CONTROL|degToRad|wrap|backgroundHex|CONSOLE_COLOR_RESTORE|IMAGE_FORMAT_PPM|B28800|disableTextureEdgeHack|enableTextureEdgeHack|IMAGE_QUALITY_MEDIUM|FloatImage|logToConsole|SoundDevice_PULSE|setCoordHandedness|getCoordHandedness|ARD_IGNORE|ASPECT_RATIO_IGNORE|ALIGN_VERT_IGNORE|ALIGN_HORZ_IGNORE|randomuf|TWO_PI|lua:cdata|HttpRequest_POST|MAX_STYLE_HISTORY|MAX_VIEWPORT_HISTORY|toHex|soundStreamStart|FBOMODE_NODEFAULTS|rotateRad|ENCODER_DETACH|setDataPathRoot|scale|File|IMAGE_FORMAT_PICT|EasyCam|getMonth|bezierVertex|POLY_WINDING_ODD|getGlobalAmbientColor|setGlobalAmbientColor|ShortColor|getLogLevelName|Fbo|rotateXDeg|random|FboModeOr|KEY_UP|Image|TextureVector|VideoDeviceVector|StringVector|FBOMODE_PERSPECTIVE|PolylineVector|dist|KEY_SHIFT|setWindowTitle|drawPlane|MODE_INPUT_PULLUP|ARD_INPUT_PULLUP|disableSetupScreen|enableSetupScreen|setupScreen|IMAGE_FORMAT_PGMRAW|beginSaveScreenAsPDF|endSaveScreenAsPDF|enableAntiAliasing|disableAntiAliasing|binaryToFloat|hexToFloat|toFloat|KEY_HOME|OUTLINE|getElapsedTimeMillis|getSystemTimeMillis|getPreviousMouseX|getKeyPressed|getMousePressed|inRange|getVersionMajor|getPreviousMouseY|disableArbTex|enableArbTex|getUsingArbTex|getUnixTime|Material|B14400|disableGLDebugLog|enableGLDebugLog|getWindowRect|getBackgroundColor|setBackgroundColor|Serial|MODE_ENCODER|ARD_ENCODER|TextureData|BoxPrimitive_SIDE_TOP|fill|exit|Mesh|SYSTEM_RESET|PRIMITIVE_TRIANGLE_FAN|PRIMITIVE_PATCHES|PRIMITIVE_LINE_LOOP|File_ReadOnly|SERIAL_ERROR|UTF8Insert|LOG_FATAL_ERROR|SYSEX_REALTIME|SYSEX_NON_REALTIME|File_WriteOnly|KEY_BACKSPACE|CLAMP_TO_EDGE|toInt64|getOFPolyMode|getGLPolyMode|setPolyMode|PIXELS_BGRA|INTERPOLATE_BILINEAR|GRADIENT_LINEAR|SoundDevice_ALSA|enableDataPath|disableDataPath|toDataPath|drawGridPlane|randomHeight|getWindowHeight|IMAGE_FORMAT_PSD|setHexColor|IMAGE_FORMAT_SGI|ARD_ON|TARGET_ANDROID|IMAGE_QUALITY_BEST|Path|KEY_RETURN|SET_PIN_MODE|getDay|IMAGE_QUALITY_LOW|nextContour|BoxPrimitive_SIDE_BOTTOM|COMPRESS_ARB|ALIGN_VERT_BOTTOM|getElapsedTimef|setColor|FloatColor|BLENDMODE_DISABLED|MODE_STEPPER|ARD_STEPPER|seedRandom|Camera|Shader|IMAGE_FORMAT_FAXG3|IntVector|FloatVector|UCharVector|rotateXRad|File_ReadWrite|RECTMODE_CORNER|setVerticalSync|setCircleResolution|setCurveResolution|setPlaneResolution|getPlaneResolution|setSphereResolution|getSphereResolution|setIcoSphereResolution|getIcoSphereResolution|setCylinderResolution|getCylinderResolution|setConeResolution|getConeResolution|setBoxResolution|getBoxResolution|BITMAPMODE_MODEL_BILLBOARD|HttpResponse|PRIMITIVE_TRIANGLE_STRIP|PRIMITIVE_LINE_STRIP|IMAGE_FORMAT_XPM|HALF_PI|restoreWorkingDirectoryToDefault|KEY_RIGHT_COMMAND|KEY_LEFT_COMMAND|KEY_COMMAND|IMAGE_FORMAT_DDS|sleepMillis|getMouseX|PIXELS_BGR|getMouseY|ONEWIRE_WITHDATA_REQUEST_BITS|SoundDevice_MS_ASIO|pushView|PIXELS_U|PIXELS_V|getVersionPreRelease|PIXELS_Y|EasyCam_TRANSFORM_TRANSLATE_Z|path|TouchEventArgs_cancel|toBinary|drawCylinder|ENCODER_REPORT_POSITIONS|Color|MOUSE_BUTTON_MIDDLE|GRADIENT_CIRCULAR|getStyle|setStyle|LOG_ERROR|FIRMATA_I2C_CONTINUOUS_READ|PIXELS_YV12|getViewportWidth|drawArrow|UTF8Length|LINEAR|popStyle|MATRIX_MODELVIEW|POLY_WINDING_ABS_GEQ_TWO|getScreenHeight|getHeight|getViewportHeight|SERIAL_READ|getFixedStepForFps|MAX_CIRCLE_PTS|MIRRORED_REPEAT|Matrix3x3|Path_COMMANDS|loadIdentityMatrix|loadViewMatrix|multViewMatrix|getCurrentViewMatrix|pushStyle|wrapRadians|angleDifferenceRadians|lerpRadians|saveURLTo|TEXTURE_LUMINANCE|TouchEventArgs_down|IMAGE_FORMAT_LBM|distSquared|getVersionInfo|TouchEventArgs|setLineWidth|Directory|REPORT_FIRMWARE|MatrixStack|getFill|Style|IMAGE_FORMAT_HDR|removeAllURLRequests|MESH_WIREFRAME|VideoPlayer|getEnv|TARGET_WINVS|LEFT_HANDED|RIGHT_HANDED|wrapDegrees|angleDifferenceDegrees|lerpDegrees|orientationToDegrees|setDepthTest|enableDepthTest|disableDepthTest|COMPRESS_NONE|resetElapsedTimeCounter|ARD_PWM|setupScreenPerspective|FpsCounter|Node|getHours|LOOP_NONE|clamp|getWindowWidth|getElapsedTimeMicros|getSystemTimeMicros|KEY_ALT|TARGET_IOS|KEY_F1|POLY_WINDING_POSITIVE|KEY_F2|KEY_F3|KEY_F4|trim|getWidth|OPEN|KEY_F5|KEY_F6|KEY_F7|setSmoothLighting|disableLighting|enableLighting|KEY_F8|KEY_F9|FIRMATA_STEPPER_DRIVER|KEY_LEFT|CONSOLE_COLOR_CYAN|VERSION_MINOR|I2C_STOP_TX|getScreenWidth|toBool|ONEWIRE_WRITE_REQUEST_BIT|ONEWIRE_DELAY_REQUEST_BIT|ONEWIRE_READ_REQUEST_BIT|ONEWIRE_SELECT_REQUEST_BIT|ONEWIRE_SKIP_REQUEST_BIT|ONEWIRE_RESET_REQUEST_BIT|IMAGE_COLOR_ALPHA|randomWidth|LOOP_PALINDROME|REPEAT|backgroundGradient|BoxPrimitive_SIDE_BACK|IMAGE_FORMAT_MNG|IMAGE_FORMAT_PBM|pushMatrix|popMatrix|getCurrentMatrix|getCurrentOrientationMatrix|getCurrentNormalMatrix|loadMatrix|multMatrix|IMAGE_FORMAT_RAS|LOG_SILENT|CONSOLE_COLOR_BLACK|map|IMAGE_FORMAT_RAW|MOUSE_BUTTON_LEFT|FIRMATA_I2C_READ|ARD_SERVO|NEAREST|ASPECT_RATIO_KEEP_BY_EXPANDING|trimBack|BaseSoundPlayer|SoundPlayer|VideoGrabber|IMAGE_FORMAT_PCD|SCHEDULER_DATA|STEPPER_DATA|ENCODER_DATA|FIRMATA_STEPPER_CW|IMAGE_FORMAT_KOALA|PIXELS_UV|MODE_PWM|PIXELS_RGBA|SERIAL_MESSAGE|ANALOG_MESSAGE|DIGITAL_MESSAGE|TouchEventArgs_move|EasyCam_TRANSFORM_TRANSLATE_XY|setWindowPosition|Vbo|ANALOG_MAPPING_QUERY|CAPABILITY_QUERY|PIN_STATE_QUERY|EasyCam_TRANSFORM_NONE|IMAGE_FORMAT_PCX|FilePath|LOG_WARNING|SERIAL_CONFIG|STEPPER_CONFIG|I2C_CONFIG|SERVO_CONFIG|ALIGN_HORZ_LEFT|LOOP_NORMAL|EasyCam_TRANSFORM_ROTATE|FIRMATA_MAX_DATA_BYTES|LIGHT_SPOT|I2C_RESTART_TX|BITMAPMODE_VIEWPORT|PIXELS_GRAY_ALPHA|BLENDMODE_ALPHA|ONEWIRE_SEARCH_ALARMS_REQUEST|ONEWIRE_CONFIG_REQUEST|ONEWIRE_SEARCH_REQUEST|I2C_REQUEST|KEY_PAGE_UP|BufferObject|TEXTURE_RGBA|PIXELS_VU|setBackgroundAuto|getBackgroundAuto|setupGraphicDefaults|rotateZDeg|CONSOLE_COLOR_RED|TTF_RIGHT_TO_LEFT|MATRIX_TEXTURE|lerp|IMAGE_FORMAT_J2K|BoxPrimitive_SIDES_TOTAL|MODE_SERVO|TARGET_LINUXARMV6L|IMAGE_QUALITY_WORST|KEY_END|SERIAL_CLOSE|SHIFT_DATA|getFrameNum|IMAGE_UNDEFINED|REPORT_DIGITAL|PRIMITIVE_LINES_ADJACENCY|PRIMITIVE_LINE_STRIP_ADJACENCY|PRIMITIVE_TRIANGLES_ADJACENCY|PRIMITIVE_TRIANGLE_STRIP_ADJACENCY|INTERPOLATE_BICUBIC|LIGHT_DIRECTIONAL|BoxPrimitive_SIDE_LEFT|IMAGE_FORMAT_CUT|SERIAL_NO_DATA|log|PRIMITIVE_TRIANGLES|signedNoise|toUpper|TARGET_EMSCRIPTEN|FileDialogResult|PIXELS_I420|launchBrowser|noise|PIXELS_UNKNOWN|drawTriangle|saveFrame|STRING_DATA|TARGET_LINUXARMV7L|beginSaveScreenAsSVG|endSaveScreenAsSVG|ONEWIRE_DATA|stringReplace|PIXELS_RGB|drawSphere|drawIcoSphere|Buffer|IMAGE_FORMAT_XBM|loadURLAsync|saveURLAsync|drawCone|URLFileLoader|KEY_DEL|SCALEMODE_FIT|IMAGE_FORMAT_PFM|FIRMATA_SERIAL_STOP_READING|FIRMATA_I2C_STOP_READING|FIRMATA_SERIAL_READ_CONTINUOUS|TrueTypeFont|vec2|MAX_ENCODERS|PIXELS_GRAY|VERSION_PATCH|KEY_RIGHT_SUPER|KEY_LEFT_SUPER|GLSupportedExtensions|IMAGE_GRAYSCALE|rotateZRad|MOUSE_BUTTON_1|MOUSE_BUTTON_2|MOUSE_BUTTON_3|LIGHT_AREA|drawBox|MOUSE_BUTTON_4|disableNormalizedTexCoords|enableNormalizedTexCoords|getUsingNormalizedTexCoords|binaryToString|hexToString|UTF8ToString|UTF8Substring|string|toString|MOUSE_BUTTON_5|CLOSE|MOUSE_BUTTON_6|MOUSE_BUTTON_7|TARGET_LINUX|MOUSE_BUTTON_8|FIRMATA_STEPPER_FOUR_WIRE|SAMPLING_INTERVAL|ENCODER_DIRECTION_MASK|drawRectangle|Rectangle|endShape|ENCODER_CHANNEL_MASK|IMAGE_FORMAT_BMP|FIRMATA_STEPPER_TWO_WIRE|enableAlphaBlending|disableAlphaBlending|KEY_F10|translate|KEY_F11|Vec4f_Vec4f_DIM|KEY_F12|SERIAL_LISTEN|getLightingEnabled|isTextureEdgeHackEnabled|IMAGE_FORMAT_PGM|getWindowPositionX|Vec3f_Vec3f_DIM|LOG_VERBOSE|getWindowPositionY|FIRMATA_STEPPER_CCW|Vec2f_Vec2f_DIM|setLogLevel|getLogLevel|File_Reference|TTF_SANS|USE_LEGACY_VECTOR_MATH|drawLine|MESH_FILL|SET_DIGITAL_PIN_VALUE|PIXELS_YUY2|setDrawBitmapMode|POLY_WINDING_NONZERO|drawGrid|setWindowShape|toDouble|popView|ASPECT_RATIO_KEEP|BLENDMODE_SUBTRACT|getGLTypeFromInternal|getGLFormatFromInternal|drawAxis|setEscapeQuitsApp|stopURLLoader|TEXTURE_RGB|IMAGE_FORMAT_JPEG|PIXELS_NV12|beginShape|TARGET_OSX|BLENDMODE_MULTIPLY|PI|KEY_SUPER|MESH_POINTS|PRIMITIVE_POINTS|disableSeparateSpecularLight|enableSeparateSpecularLight|setTimeModeFixedRate|SW_SERIAL0|HW_SERIAL0|SW_SERIAL1|HW_SERIAL1|IMAGE_FORMAT_PPMRAW|HttpRequest|removeURLRequest|SW_SERIAL2|HW_SERIAL2|getTimestampString|splitString|joinString|isStringInString|stringTimesInString|getClipboardString|setClipboardString|drawBitmapString|SW_SERIAL3|HW_SERIAL3|SoundDevice_NUM_APIS|SoundDevice_MS_WASAPI|BITMAPMODE_SIMPLE|BLENDMODE_ADD|enablePointSprites|disablePointSprites|MOUSE_BUTTON_RIGHT|ALIGN_HORZ_RIGHT|IMAGE_FORMAT_EXR|getGLInternalFormatName|SoundDevice_MS_DS|TouchEventArgs_up|randomf|getTargetPlatform|KEY_TAB|BoxPrimitive_SIDE_FRONT|events|UTF8Erase|drawBitmapStringHighlight|SCALEMODE_STRETCH_TO_FILL|Texture|BLENDMODE_SCREEN|BITMAPMODE_SCREEN|nextPow2|PIXELS_NV21|FBOMODE_MATRIXFLIP|FILLED|TouchEventArgs_doubleTap|IMAGE_FORMAT_WBMP|GLSLVersionFromGL|drawCircle|MODE_SERIAL|ARD_SERIAL|clearAlpha|soundStreamStop|MODE_OUTPUT|ARD_OUTPUT|USING_STD_FS|Light|bufferFromFile|getVersionMinor|KEY_ESC|SCALEMODE_FILL|getMinutes|KEY_INSERT|TARGET_LINUX64|getSeconds|binaryToChar|toChar|EasyCam_TRANSFORM_SCALE|drawCurve|Firmata_Serial_Data|VboMesh|Light|Arduino|supportedPinTypes|Mesh|Vec3f|Buffer|Color|FileDialogResult|Vbo|Material|Image|path|SoundPlayer|Path|VideoDevice|BufferObject|Camera|ImageLoadSettings|SoundStreamSettings|Vec4f|FilePath|Firmata_I2C_Data|FloatColor|MatrixStack|SerialDeviceInfo|TextureData|3dPrimitive|PlanePrimitive|SpherePrimitive|IcoSpherePrimitive|CylinderPrimitive|ConePrimitive|BoxPrimitive|Directory|VideoPlayer|FloatImage|IntVector|FloatVector|UCharVector|Firmata_Encoder_Data|Firmata_Stepper_Data|TrueTypeFont|ShortColor|HttpRequest|HttpResponse|Matrix3x3|Texture|Quaternion|ShortImage|VideoFormat|File|PolylineVector|TextureVector|StringVector|VideoDeviceVector|Shader|EasyCam|FpsCounter|DragInfo|Fbo|Rectangle|ShortPixels|FloatPixels|Pixels|vec2))\\b(?=\\s*(?:[({"\']|\\[\\[))'
+    'name': 'support.function.openframeworks.lua'
+  }
+  {
+    'match': '\\b([A-Za-z_]\\w*)\\b(?=\\s*(?:[({"\']|\\[\\[))'
+    'name': 'support.function.any-method.lua'
+  }
+  {
+    'match': '(?<=[^.]\\.|:)\\b([A-Za-z_]\\w*)'
+    'name': 'variable.other.lua'
+  }
+  {
+    'match': '\\+|-|%|#|\\*|\\/|\\^|==?|~=|<=?|>=?|(?<!\\.)\\.{2}(?!\\.)'
+    'name': 'keyword.operator.lua'
+  }
+]
+'scopeName': 'source.lua'
