@@ -135,6 +135,10 @@
     'name': 'constant.language.lua'
   }
   {
+    'match': '(?<![^.]\\.|:)\\b(SCRIPT_PATH|_mosaic_data_inlet|_mosaic_data_outlet|OUTPUT_WIDTH|OUTPUT_HEIGHT|_VERSION)\\b|(?<![.])\\.{3}(?!\\.)'
+    'name': 'constant.language.mosaic.lua'
+  }
+  {
     'match': '(?<![^.]\\.|:)\\b(self)\\b'
     'name': 'variable.language.self.lua'
   }
